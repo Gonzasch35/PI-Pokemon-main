@@ -1,0 +1,37 @@
+.detailContainer {
+    margin: 0;
+    background-color: rgb(80, 74, 66);
+}
+
+.detailContent {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: rgb(80, 74, 66);
+}
+
+  /* --------------detail----Fonts---------------  */
+.name {
+    margin: 0;
+    padding: .5em;
+    font-weight: lighter;
+    text-decoration: underline;
+    text-transform: uppercase;
+}
+.datos h3 {
+    font-weight: lighter;
+    text-decoration: underline;
+}
+.datos span {
+    font-weight: bolder;
+}
+.datos p {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: lighter;
+    text-transform: uppercase;
+    border-radius: 5px;
+    background-color: white;
+    color: black;
+}
+

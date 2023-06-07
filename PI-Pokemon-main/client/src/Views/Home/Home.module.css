@@ -1,0 +1,8 @@
+.searchBarContainer {
+    padding: 1em;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    border-top: .5px solid white;
+    background-color: #0d121b;
+}

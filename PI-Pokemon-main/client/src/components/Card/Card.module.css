@@ -1,0 +1,40 @@
+.cardContainer {
+    width: 250px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: rgba(107, 107, 107, 0.164);
+    border-radius: 2em;
+}
+
+.cardContainer:hover{
+    border: 1px solid #ecc02e;
+}
+
+img {
+    width: auto;
+}
+
+.link {
+    background-color: rgba(240, 248, 255, 0);
+    color: white;
+}
+.link:hover {
+    background-color: rgba(240, 248, 255, 0);
+    color: white;
+}
+
+.button {
+    border-radius: 0 0 1em 1em;
+}
+
+.types {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.types h5 {
+    text-transform: uppercase;
+}
