@@ -31,8 +31,6 @@ const createPokemonHandler = async (req, res) => {
         const {name, image, hp, attack, defense, speed, height, weight, types} = req.body
         const newPokemon = await Pokemon.create({name, image, hp, attack, defense, speed, height, weight, types})
         await newPokemon.addTypes(types)
-/*         const typeObj = typ.map(e=>e)
-        const poke = newPokemon + (typ.map(e=>e)) */
         res.status(200).json('Pokemón creado')
     } catch (error) {
         res.status(400).json({error: error.message})

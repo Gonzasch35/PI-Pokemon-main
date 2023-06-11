@@ -8,21 +8,21 @@ import SearchBar from '../../components/SearchBar/SearchBar'
 const Home = () => {
 
   const pokemons = useSelector(state=> state.allPokemons)
-
-  const [filtro, setFiltro] = useState('')
-  const [pokemonsFiltrados, setPokemonsFiltrados] = useState([])
+  console.log(pokemons);
+/*   const [pokemonsFiltrados, setPokemonsFiltrados] = useState([]) */
   const [order, setOrder] = useState('')
-
-  const [listado, setListado] = useState({})
+  const [pokesForPage, setPokesForPage] = useState([...pokemons].splice(0, 12))
+  const [currentPage, setCurrentPage] = useState(0)
 
   const dispatch = useDispatch()
 
   useEffect(() => {
     dispatch(getPokemons())
-  },[])
-  
+  },[dispatch])
+
   //---------------------------------Filtrado------------------------------
-  useEffect(() => {
+  
+/*   useEffect(() => {
     if(filtro){
       const pokemonsFiltrados = pokemons.filter((pokemon) => {
         return pokemon.types.some((type) => type.name === filtro);
@@ -30,11 +30,11 @@ const Home = () => {
      setPokemonsFiltrados(pokemonsFiltrados)
     } else setPokemonsFiltrados([])
     
-  }, [filtro])
+  }, [filtro]) */
 
   //--------------------------------Ordenamiento---------------------------
   
-  useEffect(() => {
+/*   useEffect(() => {
 
         if(order === 'name_asc'){
 
@@ -101,38 +101,59 @@ const Home = () => {
               }
       
         }
-  }, [order])
+  }, [order]) */
 
   //--------------------------------Paginado-------------------------------
 
   const handlerPrev = () => {
+    const prevPage = currentPage - 1
+
+
+    if (prevPage < 0) return;
+
+    const firstIndex = prevPage * 12
+
+    setPokesForPage([...pokemons].splice(firstIndex, 12))
+
+    setCurrentPage(prevPage)
     console.log('prev');
   }
 
 
   const handlerNext = () => {
-    console.log('next');
+    const totalPokemons = pokemons.length
+    console.log(totalPokemons);
+    
+    const nextPage = currentPage + 1
+
+    const firstIndex = nextPage * 12
+
+    if(firstIndex > totalPokemons) return;
+
+    setPokesForPage([...pokemons].splice(firstIndex, 12))
+    setCurrentPage(nextPage)
   }
 
   return (
     <div>
         <SearchBar 
-          filtro={filtro}
-          setFiltro={setFiltro}
+/*           filtro={filtro}
+          setFiltro={setFiltro} */
           order={order}
           setOrder={setOrder}
         />
         
-        <h2>{pokemonsFiltrados.length ? `Pokemons de tipo: ${filtro}` : 'Lista de pokemóns'}</h2>
+        <h2>{pokemons.length ? `Pokemons de tipo:}` : 'Lista de pokemóns'}</h2>
         
         <CardsContainer
-          pokemons={pokemons} 
-          filtro={filtro}
-          pokemonsFiltrados={pokemonsFiltrados}
+          pokemons={pokemons}
+/*           pokemonsFiltrados={pokemonsFiltrados} */
+          handlerNext={handlerNext}
+          handlerPrev={handlerPrev}
+          currentPage={currentPage}
         />
 
-        <button onClick={handlerPrev}>Anterior</button>
-        <button onClick={handlerNext}>Siguiente</button>
+
     </div>
   )
 }

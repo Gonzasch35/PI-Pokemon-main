@@ -1,0 +1,102 @@
+.normal:hover {
+    border: 1px solid transparent;
+    background-color: rgb(100, 100, 100);
+}
+
+.fighting:hover {
+    border: 1px solid transparent;
+    background-color: rgb(77, 29, 29);
+}
+
+.flying:hover {
+    border: 1px solid transparent;
+    background-color: rgb(69, 116, 177);
+}
+
+.poison:hover {
+    border: 1px solid transparent;
+    background-color: rgb(105, 71, 133);
+}
+
+.ground:hover {
+    border: 1px solid transparent;
+    background-color: rgb(77, 45, 35);
+}
+
+.rock:hover {
+    border: 1px solid transparent;
+    background-color: rgb(68, 68, 68);
+}
+
+.bug:hover {
+    border: 1px solid transparent;
+    background-color: rgb(143, 156, 85);
+}
+
+.ghost:hover {
+    border: 1px solid transparent;
+    background-color: rgb(56, 50, 114);
+}
+
+.steel:hover {
+    border: 1px solid transparent;
+    color: black;
+    background-color: rgb(182, 182, 182);
+}
+
+.fire:hover {
+    border: 1px solid transparent;
+    background-color: rgb(133, 19, 16);
+}
+
+.water:hover {
+    border: 1px solid transparent;
+    background-color: rgb(71, 160, 201);
+}
+
+.grass:hover {
+    border: 1px solid transparent;
+    background-color: rgb(103, 126, 40);
+}
+
+.electric:hover {
+    border: 1px solid transparent;
+    background-color: rgb(206, 185, 65);
+}
+
+.psychic:hover {
+    border: 1px solid transparent;
+    background-color: rgb(156, 92, 124);
+}
+
+.ice:hover {
+    border: 1px solid transparent;
+    color: black;
+    background-color: rgb(172, 222, 255);
+}
+
+.dragon:hover {
+    border: 1px solid transparent;
+    background-color: rgb(77, 15, 0);
+}
+
+.dark:hover {
+    border: 1px solid transparent;
+    background-color: rgb(0, 0, 0);
+}
+
+.fairy:hover {
+    border: 1px solid transparent;
+    background-color: rgb(255, 160, 226);
+}
+
+.unknown:hover {
+    border: 1px solid transparent;
+    color: black;
+    background-color: rgb(255, 255, 255);
+}
+
+.shadow:hover {
+      border: 1px solid transparent;
+    background-color: rgb(109, 109, 109);
+}

@@ -2,15 +2,14 @@ import React from 'react'
 import Card from '../Card/Card'
 import style from './CardsContainer.module.css'
 
-const CardsContainer = ({pokemons, filtro, pokemonsFiltrados}) => {
+const CardsContainer = ({pokemons, filtro, /* pokemonsFiltrados */ handlerPrev, handlerNext, currentPage}) => {
 
-  
 
   return (
     <div className={style.mainContainer}>
 
         {
-          filtro !== '' && pokemonsFiltrados.length ? (
+          /* filtro !== '' && pokemonsFiltrados.length ? (
             <>
               {pokemonsFiltrados?.map(poke => {
                 return <Card
@@ -23,10 +22,11 @@ const CardsContainer = ({pokemons, filtro, pokemonsFiltrados}) => {
                   />
               })}
             </>
-        ) : (
+        ) : ( */
           <>
-            {filtro === '' &&  
-            pokemons?.map(poke => {
+            {/* {filtro === '' &&  */}
+
+            {pokemons?.map(poke => {
             return <Card
                 key={poke.id}
                 id={poke.id}
@@ -37,8 +37,13 @@ const CardsContainer = ({pokemons, filtro, pokemonsFiltrados}) => {
                 />
               })}
             </>
-            )
+            
         }
+        <div>
+          <button onClick={handlerPrev}>Anterior</button>
+          <p>{currentPage}</p>
+          <button onClick={handlerNext}>Siguiente</button>
+        </div>
 
     </div>
   )

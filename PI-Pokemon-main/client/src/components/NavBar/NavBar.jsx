@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import style from './NavBar.module.css'
 
 const NavBar = () => {
@@ -7,6 +7,8 @@ const NavBar = () => {
     <div className={style.navContainer}>
         <Link to='/home'>Home</Link>
         <Link to='/create'>Crear Pokemón</Link>
+        <Link onClick={useLocation('/')}>Actualizar</Link>
+
     </div>
   )
 }
