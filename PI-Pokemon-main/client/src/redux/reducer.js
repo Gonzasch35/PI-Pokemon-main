@@ -1,4 +1,12 @@
-import { GET_POKEMONS, GET_POKEMON_BY_ID, GET_POKEMON_BY_NAME, GET_POKEMONS_BY_TYPE, ORDER, GET_TYPES} from "./actions"
+import {GET_POKEMONS,
+        GET_POKEMON_BY_ID, 
+        GET_POKEMON_BY_NAME, 
+        GET_POKEMONS_BY_TYPE, 
+        ORDER_NAME,
+        ORDER_ATTACK,
+        GET_API_OR_DB,
+        GET_TYPES,
+        DELETE_POKEMON} from "./actions"
 
 let initialState = {
     pokemons: [],
@@ -23,8 +31,8 @@ const rootReducer = (state = initialState, action) => {
             return {
                 ...state, allPokemons: pokemonsFilter
             }
-        case ORDER:
-            let order = action.payload === "name_asc" ?
+        case ORDER_NAME:
+            let orderName = action.payload === "name_asc" ?
                 state.pokemons.sort((prev, next) => {
                     if(prev.name > next.name) return -1;
                     if(prev.name < next.name) return 1;
@@ -37,10 +45,39 @@ const rootReducer = (state = initialState, action) => {
                 })
             return {
                 ...state,
-                allPokemons: order
+                allPokemons: orderName
+            }
+            case ORDER_ATTACK:
+                let orderAttack = action.payload === "attack_desc" ?
+                    state.pokemons.sort((prev, next) => {
+                        if(prev.attack > next.attack) return -1;
+                        if(prev.attack < next.attack) return 1;
+                        return 0;
+                    }) :
+                    state.pokemons.sort((prev, next) => {
+                        if(prev.attack > next.attack) return 1;
+                        if(prev.attack < next.attack) return -1;
+                        return 0;
+                    })
+                return {
+                    ...state,
+                    allPokemons: orderAttack
+                }
+        case GET_API_OR_DB:
+            let allPokemons = state.pokemons
+            const prop = 'created'
+            let apiOrCreated = action.payload === 'api' ?
+                allPokemons.filter(poke => !(prop in poke)) :
+                allPokemons.filter(poke => 
+                poke.created === true)
+            return {
+                ...state,
+                allPokemons: apiOrCreated,
             }
         case GET_TYPES:
             return{... state, allTypes: action.payload}
+        case DELETE_POKEMON: 
+            return{...state, allPokemons: action.payload}
         default:
             return{
                 ...state,

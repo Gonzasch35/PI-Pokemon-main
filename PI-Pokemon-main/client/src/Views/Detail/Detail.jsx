@@ -18,27 +18,39 @@ const Detail = () => {
   
   return (
     <div className={style.detailContainer}>
-            <h1 className={style.name}>{pokemonData.name}</h1>
 
             <div className={style.detailContent}>
 
-              <div>
+              <div className={style.image}>
                 <img src={pokemonData.image} alt="" />
               </div>
 
               <div className={style.datos}>
-                <h3>Hp: <span>{pokemonData.hp}</span></h3>
-                <h3>Attack: <span>{pokemonData.attack}</span></h3>
-                <h3>Defense: <span>{pokemonData.defense}</span></h3>
-                <h3>Speed: <span>{pokemonData.speed}</span></h3>
-                <h3>Height: <span>{pokemonData.height}</span></h3>
-                <h3>Weight: <span>{pokemonData.weight}</span></h3>
-                <h3>Tipos: </h3>
-                {pokemonData.types?.map(e=> {
-                  return (
-                    <p>{e.name}</p>
-                  )
-                  })}
+                <div>
+                    <h1 className={style.name}>{pokemonData.name}</h1>
+                </div>
+                <div className={style.stats}>
+                    <h3>Hp: </h3>
+                    <span>{pokemonData.hp}</span>
+                    <h3>Attack: </h3>
+                    <span>{pokemonData.attack}</span>
+                    <h3>Defense: </h3>
+                    <span>{pokemonData.defense}</span>
+                    <h3>Speed: </h3>
+                    <span>{pokemonData.speed}</span>
+                    <h3>Height: </h3>
+                    <span>{pokemonData.height}</span>
+                    <h3>Weight: </h3>
+                    <span>{pokemonData.weight}</span>
+                </div>
+                <div>
+                    <h3>Tipos: </h3>
+                    {pokemonData.types?.map(e=> {
+                      return (
+                        <p>{e.name}</p>
+                      )
+                      })}
+                </div>
               </div>
 
             </div>

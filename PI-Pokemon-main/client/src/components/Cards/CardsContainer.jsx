@@ -2,31 +2,16 @@ import React from 'react'
 import Card from '../Card/Card'
 import style from './CardsContainer.module.css'
 
-const CardsContainer = ({pokemons, filtro, /* pokemonsFiltrados */ handlerPrev, handlerNext, currentPage}) => {
+const CardsContainer = ({pokemons}) => {
 
 
   return (
-    <div className={style.mainContainer}>
+    <div>
 
-        {
-          /* filtro !== '' && pokemonsFiltrados.length ? (
-            <>
-              {pokemonsFiltrados?.map(poke => {
-                return <Card
-                  key={poke.id}
-                  id={poke.id}
-                  image={poke.image}
-                  name={poke.name}
-                  attack={poke.attack}
-                  types={poke.types}
-                  />
-              })}
-            </>
-        ) : ( */
+      <div className={style.mainContainer}>
+
           <>
-            {/* {filtro === '' &&  */}
-
-            {pokemons?.map(poke => {
+            {pokemons ? pokemons.map(poke => {
             return <Card
                 key={poke.id}
                 id={poke.id}
@@ -35,16 +20,17 @@ const CardsContainer = ({pokemons, filtro, /* pokemonsFiltrados */ handlerPrev, 
                 attack={poke.attack}
                 types={poke.types}
                 />
-              })}
+              }) : <h3>cargando...</h3>}
             </>
-            
-        }
-        <div>
-          <button onClick={handlerPrev}>Anterior</button>
-          <p>{currentPage}</p>
-          <button onClick={handlerNext}>Siguiente</button>
-        </div>
 
+
+      </div>
+
+{/*       <div className={style.buttonsPage}>
+          <button onClick={handlerPrev}>Anterior</button>
+          <p>{currentPage + 1} - {totalPages}</p>
+          <button onClick={handlerNext}>Siguiente</button>
+      </div> */}
     </div>
   )
 }
