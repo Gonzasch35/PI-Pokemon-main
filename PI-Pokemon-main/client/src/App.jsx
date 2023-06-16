@@ -2,6 +2,9 @@ import './App.css'
 import {Detail, Form, Home, Landing} from './Views'
 import { Route, Routes, useLocation } from 'react-router-dom'
 import NavBar from './components/NavBar/NavBar'
+import About from './Views/About/About'
+import Favorites from './components/Favorites/Favorites'
+
 
 
 function App() {
@@ -40,6 +43,22 @@ function App() {
         path='/detail/:id'
         element={<Detail
                   
+                />}
+        />
+
+//--------------About-------------------
+        <Route 
+        path='/about'
+        element={<About
+                  
+                />}
+        />
+
+//--------------Favorites-------------------
+        <Route 
+        path='/favorites'
+        element={<Favorites
+
                 />}
         />
 

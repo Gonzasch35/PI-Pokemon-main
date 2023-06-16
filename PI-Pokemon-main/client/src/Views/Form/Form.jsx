@@ -60,7 +60,7 @@ const Form = () => {
 
   const handlerChange = (e) => {
     const property = e.target.name
-    const value = e.target.value 
+    const value = e.target.value
     setNewPokemon({...newPokemon, [property]: value})
 
     validation(property, value, errors, setErrors)
@@ -84,9 +84,11 @@ const Form = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
+
     if(!errors.name && !errors.hp && !errors.attack && !errors.defense && !errors.types){
       axios.post('http://localhost:3001/pokemons', newPokemon)
-      confirm('Crear pokemón?')
+      alert('Pokemon creado')
+      setNewPokemon({name: '', image:'', hp: 0, attack: 0, defense: 0, speed: 0, height: 0, weight: 0, types: []})
     } else {
       alert('Completa todos los campos')
     }
@@ -101,7 +103,7 @@ const Form = () => {
               <div className={style.formDiv}>
 
                   <div className={style.label_input}>
-                    <label htmlFor="">*Nombre: </label>
+                    <label htmlFor="">*Name: </label>
                     <input 
                       required
                       type="text"
@@ -112,7 +114,7 @@ const Form = () => {
                     {errors.name && <h6 className={style.errors}>{errors.name}</h6>}
                   </div>
                   <div className={style.label_input}>
-                    <label htmlFor="">*Imagen: </label>
+                    <label htmlFor="">*Image: </label>
                     <input
                       required
                       type="url"
@@ -138,7 +140,7 @@ const Form = () => {
                     {errors.hp && <h6 className={style.errors}>{errors.hp}</h6>}
                   </div>
                   <div className={style.label_input}>
-                    <label htmlFor="">*Ataque: </label>
+                    <label htmlFor="">*Attack: </label>
                     <input
                       required 
                       type="number"
@@ -153,7 +155,7 @@ const Form = () => {
               <div className={style.formDiv}>
 
                   <div className={style.label_input}>
-                    <label htmlFor="">*Defensa: </label>
+                    <label htmlFor="">*Defense: </label>
                     <input
                       required
                       type="number"
@@ -161,15 +163,17 @@ const Form = () => {
                       value={newPokemon.defense}
                       onChange={handlerChange}
                     />
+                    {errors.defense && <h6 className={style.errors}>{errors.defense}</h6>}
                   </div>
                   <div className={style.label_input}>
-                    <label htmlFor="">Velocidad: </label>
+                    <label htmlFor="">Speed: </label>
                     <input 
                       type="number"
                       name='speed'
                       value={newPokemon.speed}
                       onChange={handlerChange} 
                     />
+
                   </div>
 
               </div>
@@ -177,7 +181,7 @@ const Form = () => {
               <div className={style.formDiv}>
 
                   <div className={style.label_input}>
-                    <label htmlFor="">Altura: </label>
+                    <label htmlFor="">Height: </label>
                     <input 
                       type="number"
                       name='height'
@@ -186,7 +190,7 @@ const Form = () => {
                     />
                   </div>
                   <div className={style.label_input}>
-                    <label htmlFor="">Peso: </label>
+                    <label htmlFor="">Weight: </label>
                     <input 
                       type="number"
                       name='weight'
@@ -196,8 +200,6 @@ const Form = () => {
                   </div>
 
               </div>
-
-              <h6>Elige el tipo:</h6>
               <div className={style.typesContainer}>
                 {types.map(type => (
                   isType[type.name] ? (

@@ -29,7 +29,6 @@ const SearchBar = ({setOrderName, setOrderAttack, setCreated, setType, setCurren
     const handleOrderName = (e) => {
       dispatch(inOrder(e.target.value))
       setOrderName(e.target.value)
-      setCurrentPage(1)
     }
 
     const handleOrderAttack = (e) => {
@@ -48,12 +47,14 @@ const SearchBar = ({setOrderName, setOrderAttack, setCreated, setType, setCurren
     const handleSubmit = (event) => {
         event.preventDefault();
         dispatch(getPokemonByName(name))
+        setCurrentPage(1)
+        setName('')
     }
 
   return (
     <div className={style.searchBarContainer}>
         <div className={style.search_name}>
-          <input className={style.search_input} onChange={handleChange} type="text" placeholder='pikachu, charmander, etc...' />
+          <input className={style.search_input} onChange={handleChange} value={name} type="text" placeholder='pikachu, charmander, etc...' />
           <input className={style.search_button} type='submit' onClick={handleSubmit} value='Buscar'/>
         </div>
 

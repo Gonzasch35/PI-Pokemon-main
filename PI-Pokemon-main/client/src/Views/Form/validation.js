@@ -1,5 +1,4 @@
 export const validation = (property, value, errors, setErrors) => {
-    console.log(value)
 
     switch (property) {
         case 'name':

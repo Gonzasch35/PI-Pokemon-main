@@ -17,11 +17,11 @@ const deletePokemonHandler = async (req,res) => {
 const getPokemonsHandler = async (req, res) => {
     try {
         const {name} = req.query
-
+        
         const results = name ? await getPokemonByName(name) : await getAllPokemons()
-        results ? res.status(200).json(results) : res.status(400).json('No se encontraron pokemons')
+        results ? res.status(200).json(results) : res.status(404).json('No se encontro ningun pokemón')
     } catch (error) {
-        res.status(500).json({error: error.message})
+        res.status(500).json({error: 'No se encontró ningun Pokemón'})
     }
 }
 

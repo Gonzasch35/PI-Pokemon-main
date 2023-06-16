@@ -1,3 +1,21 @@
+.fav_container {
+    width: 100%;
+    max-width: 120em;
+    min-height: 100vh;
+    margin: auto;
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    flex-direction: row;
+    margin-top: 4em;
+}
+
+.title {
+    width: 100%;
+    display: block;
+}
+
 .cardContainer {
     width: 300px;
     height: auto;
@@ -5,54 +23,46 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    background-image: url('./fondo-card.jpg');
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: cover;
-    border-radius: .5em;
+    background-color: #ffffff81;
+    color: black;
+    border-radius: 50% 5% 5% 5%;
     position: relative;
     box-shadow: 0 0 10px #0000002f, 0 0 4px #00000070, 0 0 20px #00000070;
+}
+
+.image {
+    top: -40px;
+    width: 18em;
+    position: absolute;
+}
+
+.name {
+    margin: 80% 0 0 0;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    text-decoration: underline;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.stats span {
+    font-weight: bolder;
 }
 
 .favorite {
     padding: 0;
     position: absolute;
     top: 15px;
-    left: 20px;
+    right: 20px;
     background-color: transparent;
     scale: 1.5;
 }
 
-.image {
-    width: auto;
-    border-radius: 2em 2em 0 0;
-}
 
-.name {
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    margin: 10px 0 0 0;
-}
-
-.link {
-    display: block;
-    width: 100%;
-    padding: 1em 0;
-    background-color: rgba(0, 0, 0, 0);
-    color: rgb(255, 255, 255);
-    text-decoration: none;
-}
-.link:hover {
-    background-color: rgba(0, 0, 0, 0);
-    color: rgb(255, 255, 255);
-}
-
-.button {
-    padding: 0;
-    background-color: rgb(0, 0, 0);
-    border-radius: 0 0 .5em .5em;
-    text-transform: uppercase;
-}
+/* ---------------------types------------------------- */
 
 .types {
     display: flex;
@@ -69,26 +79,6 @@
     border-radius: 5px;
     font-size: 18px;
 }
-
-
-.on_closed {
-    border-radius: 0 .5em 0 10px;
-    position: absolute;
-    padding: .4em .8em;
-    top: 0%;
-    right: 0%;
-    color: #990e0e;
-    background-color: rgb(235, 235, 235);
-}
-
-.on_closed:hover {
-    background-color: rgba(121, 15, 15, 0.945);
-    color: white;
-    border: .5px solid white;
-}
-
-
-/* ------------- Types Buttons ----------------- */
 
 .normal {
     border: 1px solid transparent;

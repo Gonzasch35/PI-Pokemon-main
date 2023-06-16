@@ -15,7 +15,7 @@ const getPokemonByName = async (name) => {
         speed: data.stats[5].base_stat,
         height: data.height,
         weight: data.weight,
-        type: data.types.map(e=>{return {name: e.type.name}})
+        types: data.types.map(e=>{return {name: e.type.name}})
     }
     return pokemon;
 }

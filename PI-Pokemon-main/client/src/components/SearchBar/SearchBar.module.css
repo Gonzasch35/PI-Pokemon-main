@@ -8,24 +8,27 @@
     background-color: #0000009c;
 /*     position: fixed; */
     z-index: 9999;
+    box-shadow: 0 0 10px #fafafa2f, 0 0 4px #cfcfcf70, 0 0 20px #ffffff70;
 }
 
-.search_name {
-    padding: 1em;
-}
 
 .search_input {
+    padding: .5em;
+    border: none;
     border-radius: 10px 0 0 10px;
+    color: white;
 }
 
 .search_button {
     margin: 0;
-    padding: auto;
-    background-color: #3f3f3f;
+    padding: .5em;
+    background-color: #b60a0a;
     color: white;
+    border: none;
     border-radius: 0 10px 10px 0;
     text-transform: uppercase;
-    font-weight: bold;
+    font-weight: lighter;
+    cursor:pointer;
 }
 
 .filters {
@@ -40,4 +43,7 @@
 
 .filters select {
     padding: .5em;
+    cursor: pointer;
+    border-radius: 10px;
+    border: none;
 }

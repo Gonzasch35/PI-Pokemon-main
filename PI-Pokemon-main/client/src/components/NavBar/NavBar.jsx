@@ -4,16 +4,19 @@ import logo from './logo.png'
 import style from './NavBar.module.css'
 
 const NavBar = () => {
+
+  const location = useLocation()
+
   return (
     <div className={style.navContainer}>
       <div>
-        <img className={style.logo} src={logo} alt="logo" />
+        <Link className={style.link_logo} to='/home'><img className={style.logo} src={logo} alt="logo" /></Link>
       </div>
       <div className={style.links_container}>
-        <Link to='/home'>Home</Link>
-        <Link to='/create'>Crear Pokemón</Link>
-        <Link to='/home'>Favoritos</Link>
-        <Link to='/home'>About</Link>
+        <Link className={location.pathname === '/home' && style.active} to='/home'>Home</Link>
+        <Link className={location.pathname === '/create' && style.active} to='/create'>Crear Pokemón</Link>
+        <Link className={location.pathname === '/favorites' && style.active} to='/favorites'>Favoritos</Link>
+        <Link className={location.pathname === '/about' && style.active} to='/about'>About</Link>
         <Link onClick={useLocation('/')}>Actualizar</Link>
       </div>
 

@@ -11,7 +11,7 @@ const CardsContainer = ({pokemons}) => {
       <div className={style.mainContainer}>
 
           <>
-            {pokemons ? pokemons.map(poke => {
+            {pokemons && pokemons.map(poke => {
             return <Card
                 key={poke.id}
                 id={poke.id}
@@ -20,7 +20,7 @@ const CardsContainer = ({pokemons}) => {
                 attack={poke.attack}
                 types={poke.types}
                 />
-              }) : <h3>cargando...</h3>}
+              })}
             </>
 
 

@@ -5,6 +5,7 @@ import { getPokemons } from '../../redux/actions'
 import SearchBar from '../../components/SearchBar/SearchBar'
 import style from './Home.module.css'
 import Paginado from '../../components/Paginado/Paginado'
+import Loading from './Loading'
 
 const Home = () => {
 
@@ -47,9 +48,12 @@ const Home = () => {
         
         {(type && type !== 'all') && <h2 className={style.h2}>{`Pokemons de tipo: ${type}`}</h2>}
         
-        <CardsContainer
-          pokemons={currentPokemons}
-        />
+        {
+          pokemons.length ? 
+          <CardsContainer
+            pokemons={currentPokemons}
+          /> : <Loading></Loading>
+        }
         <Paginado 
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}

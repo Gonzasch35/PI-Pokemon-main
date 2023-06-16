@@ -9,6 +9,8 @@ export const ORDER_ATTACK = 'ORDER_ATTACK'
 export const GET_TYPES = "GET_TYPES"
 export const GET_API_OR_DB = "GET_API_OR_DB"
 export const  DELETE_POKEMON = " DELETE_POKEMON"
+export const ADD_FAVORITE = 'ADD_FAVORITE'
+export const REMOVE_FAVORITE = 'REMOVE_FAVORITE'
 
 const URL_POKEMONS = 'http://localhost:3001/pokemons/'
 const URL_TYPES = 'http://localhost:3001/types/'
@@ -31,9 +33,13 @@ export const getPokemonById = (id) => {
 
 export const getPokemonByName = (name) => {
     return async function (dispatch) {
-        const byName = await axios.get(`${URL_POKEMONS}?name=${name}`)
-        const pokemon = byName.data
-        dispatch({type: GET_POKEMON_BY_NAME, payload: pokemon})
+        try {
+            const byName = await axios.get(`${URL_POKEMONS}?name=${name}`)
+            const pokemon = byName.data
+            dispatch({type: GET_POKEMON_BY_NAME, payload: pokemon})
+        } catch (error) {
+            alert(error)
+        }
     }
 }
 
@@ -78,5 +84,19 @@ export const deletePokemon = (id) => {
         const dataDetail = await axios.delete(`${URL_POKEMONS}${id}`)
         const deletePoke = dataDetail.data
         dispatch({type: DELETE_POKEMON, payload: deletePoke})
+    }
+}
+
+export const addFavorite = (id) => {
+    return {
+        type: ADD_FAVORITE,
+        payload: id,
+    }
+}
+
+export const removeFavorite = (id) => {
+    return {
+        type: REMOVE_FAVORITE,
+        payload: id,
     }
 }

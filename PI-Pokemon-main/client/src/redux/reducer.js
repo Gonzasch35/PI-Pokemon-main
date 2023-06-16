@@ -6,13 +6,16 @@ import {GET_POKEMONS,
         ORDER_ATTACK,
         GET_API_OR_DB,
         GET_TYPES,
-        DELETE_POKEMON} from "./actions"
+        DELETE_POKEMON,
+        ADD_FAVORITE,
+        REMOVE_FAVORITE} from "./actions"
 
 let initialState = {
     pokemons: [],
     allPokemons: [],
     pokemonDetail: {},
     allTypes: [],
+    favorites: [],
 }
 
 const rootReducer = (state = initialState, action) => {
@@ -22,6 +25,7 @@ const rootReducer = (state = initialState, action) => {
         case GET_POKEMON_BY_ID:
             return{...state, pokemonDetail: action.payload}
         case GET_POKEMON_BY_NAME:
+            console.log(action.payload);
             return{... state, allPokemons: [action.payload]}
         case GET_POKEMONS_BY_TYPE:
             const pokemons = state.pokemons
@@ -78,6 +82,15 @@ const rootReducer = (state = initialState, action) => {
             return{... state, allTypes: action.payload}
         case DELETE_POKEMON: 
             return{...state, allPokemons: action.payload}
+
+        case ADD_FAVORITE:
+            const favorite = state.pokemons.find(poke => poke.id === action.payload)
+            return {...state, favorites: [...state.favorites, favorite]}
+
+        case REMOVE_FAVORITE:
+            const removeFavorite = state.favorites.filter(poke => poke.id !== action.payload)
+            return {...state, favorites: removeFavorite}
+
         default:
             return{
                 ...state,

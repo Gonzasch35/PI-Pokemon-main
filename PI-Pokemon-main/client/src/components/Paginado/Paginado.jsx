@@ -28,7 +28,7 @@ const Paginado = ({pokemonsPerPage, pokemons, paginado, currentPage, setCurrentP
                 pageNumbers && 
                 pageNumbers.map(number => (
                     <li key={number} className={styles.page_number}>
-                        <a className={styles.number} onClick={() => paginado(number)}>{number}</a>
+                        <a className={currentPage === number ? styles.number_active : styles.number} onClick={() => paginado(number)}>{number}</a>
                     </li>
                 ))
             }
