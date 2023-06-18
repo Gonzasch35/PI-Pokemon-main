@@ -7,10 +7,9 @@ import style from './Home.module.css'
 import Paginado from '../../components/Paginado/Paginado'
 import Loading from './Loading'
 
-const Home = () => {
+const Home = ({setEditPokemon, setNewPokemon}) => {
 
   const pokemons = useSelector(state=> state.allPokemons)
-  console.log(pokemons);
   const [orderName, setOrderName] = useState('')
   const [orderAttack, setOrderAttack] = useState('')
   const [type, setType] = useState('')
@@ -52,7 +51,9 @@ const Home = () => {
           pokemons.length ? 
           <CardsContainer
             pokemons={currentPokemons}
-          /> : <Loading></Loading>
+            setEditPokemon={setEditPokemon}
+            setNewPokemon={setNewPokemon}
+          /> : <Loading />
         }
         <Paginado 
           currentPage={currentPage}

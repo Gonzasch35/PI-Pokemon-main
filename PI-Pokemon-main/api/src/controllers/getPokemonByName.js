@@ -2,8 +2,9 @@ const axios =require("axios")
 
 const getPokemonByName = async (name) => {
     const {data} = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`)
-    
+    console.log(data);
     if(!data) throw Error('No hay pokemons con este nombre')
+
 
     const pokemon = {
         id: data.id,
@@ -21,3 +22,4 @@ const getPokemonByName = async (name) => {
 }
 
 module.exports = getPokemonByName
+

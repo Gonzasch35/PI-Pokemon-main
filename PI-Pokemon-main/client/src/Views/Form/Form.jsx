@@ -4,8 +4,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import * as actions from '../../redux/actions'
 import style from './Form.module.css'
 import {validation} from './validation'
+import Message from '../../components/Message/Message'
 
-const Form = () => {
+const Form = ({message, setMessage, newPokemon, setNewPokemon, editPokemon}) => {
 
   const types = useSelector(state => state.allTypes)
   const [isType, setIsType] = useState({
@@ -38,18 +39,6 @@ const Form = () => {
   },[])
   
 
-  const [newPokemon, setNewPokemon] = useState({
-    name: '',
-    image: '',
-    hp: 0,
-    attack: 0,
-    defense: 0,
-    speed: 0,
-    height: 0,
-    weight: 0,
-    types: [],
-  })
-
   const [errors, setErrors] = useState({
     name: '',
     hp: '',
@@ -68,11 +57,11 @@ const Form = () => {
 
   const handlerTypes = (e) => {
     const property = e.target.name
-    if(!newPokemon.types.includes(Number(e.target.value))) {
-      setNewPokemon({...newPokemon, types: [...newPokemon.types, Number(e.target.value)]})
+    if(!newPokemon.types.includes(e.target.value)) {
+      setNewPokemon({...newPokemon, types: [...newPokemon.types, e.target.value]})
     } else {
       const allTypes = newPokemon.types
-      const filterTypes = allTypes.filter(type => type !== Number(e.target.value))
+      const filterTypes = allTypes.filter(type => type !== e.target.name)
       setNewPokemon({...newPokemon, types: filterTypes})
     }
     if (isType[property]) {
@@ -84,13 +73,20 @@ const Form = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-
-    if(!errors.name && !errors.hp && !errors.attack && !errors.defense && !errors.types){
+    if (!newPokemon.name || !newPokemon.image || newPokemon.hp === 0 || newPokemon.attack === 0 || newPokemon.defense === 0 || !newPokemon.types.length) {
+      setMessage('Completa todos los campos')
+      setTimeout(() => {
+        setMessage('')
+      }, 3000);
+    } else if((!errors.name && !errors.hp && !errors.attack && !errors.defense && !errors.types) && !editPokemon.length){
       axios.post('http://localhost:3001/pokemons', newPokemon)
       alert('Pokemon creado')
       setNewPokemon({name: '', image:'', hp: 0, attack: 0, defense: 0, speed: 0, height: 0, weight: 0, types: []})
+    } else if((!errors.name && !errors.hp && !errors.attack && !errors.defense && !errors.types) && editPokemon){
+      axios.put(`http://localhost:3001/pokemons/${editPokemon.id}`, newPokemon)
+      alert('Pokemon editado')
     } else {
-      alert('Completa todos los campos')
+      setMessage('Hay errores en uno o más campos')
     }
   }
 
@@ -98,14 +94,13 @@ const Form = () => {
     <div>
         <form onSubmit={handleSubmit}>
           <div className={style.formContainer}>
-            <h2>Create your Pokemón</h2>
-
+            <h2>{Object.keys(editPokemon).length > 0 ? 'Edit Pokemón' : 'Create a New Pokemón'}</h2>
+              {message && <Message tipo='error'>{message}</Message>}
               <div className={style.formDiv}>
 
                   <div className={style.label_input}>
                     <label htmlFor="">*Name: </label>
                     <input 
-                      required
                       type="text"
                       name='name' 
                       value={newPokemon.name}
@@ -116,7 +111,6 @@ const Form = () => {
                   <div className={style.label_input}>
                     <label htmlFor="">*Image: </label>
                     <input
-                      required
                       type="url"
                       name='image'
                       value={newPokemon.image}
@@ -131,7 +125,6 @@ const Form = () => {
                   <div className={style.label_input}>
                     <label htmlFor="">*Hp: </label>
                     <input
-                      required
                       type="number"
                       name='hp'
                       value={newPokemon.hp}
@@ -142,7 +135,6 @@ const Form = () => {
                   <div className={style.label_input}>
                     <label htmlFor="">*Attack: </label>
                     <input
-                      required 
                       type="number"
                       name='attack'
                       value={newPokemon.attack}
@@ -157,7 +149,6 @@ const Form = () => {
                   <div className={style.label_input}>
                     <label htmlFor="">*Defense: </label>
                     <input
-                      required
                       type="number"
                       name='defense'
                       value={newPokemon.defense}
@@ -215,7 +206,7 @@ const Form = () => {
                   <button
                     className={style.button_type}
                     onClick={e => handlerTypes(e)}
-                    value={type.id}
+                    value={type.name}
                     key={type.id}
                     name={type.name}
                     type='button'>{type.name}
@@ -227,7 +218,7 @@ const Form = () => {
               <div className={style.submit_button}>
                 <input
                   type='submit'
-                  value='Crear Pokemón'
+                  value={Object.keys(editPokemon).length > 0 ? 'Edit Pokemón' : 'Create Pokemón'}
                 />
               </div>
 

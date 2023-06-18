@@ -2,7 +2,7 @@ import React from 'react'
 import Card from '../Card/Card'
 import style from './CardsContainer.module.css'
 
-const CardsContainer = ({pokemons}) => {
+const CardsContainer = ({pokemons, setEditPokemon, setNewPokemon}) => {
 
 
   return (
@@ -13,12 +13,15 @@ const CardsContainer = ({pokemons}) => {
           <>
             {pokemons && pokemons.map(poke => {
             return <Card
-                key={poke.id}
+                    poke={poke}
+/*                 key={poke.id}
                 id={poke.id}
                 image={poke.image}
                 name={poke.name}
                 attack={poke.attack}
-                types={poke.types}
+                types={poke.types} */
+                setEditPokemon={setEditPokemon}
+                setNewPokemon={setNewPokemon}
                 />
               })}
             </>

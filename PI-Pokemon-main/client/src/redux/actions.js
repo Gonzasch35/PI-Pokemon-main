@@ -38,7 +38,7 @@ export const getPokemonByName = (name) => {
             const pokemon = byName.data
             dispatch({type: GET_POKEMON_BY_NAME, payload: pokemon})
         } catch (error) {
-            alert(error)
+            alert('Pokemón not found')
         }
     }
 }

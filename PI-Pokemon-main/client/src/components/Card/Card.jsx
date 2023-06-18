@@ -4,7 +4,10 @@ import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import {deletePokemon, addFavorite, removeFavorite} from '../../redux/actions'
 
-const Card = ({key, id, image, name, types}) => {
+const Card = ({poke, setEditPokemon, setNewPokemon}) => {
+
+  const {key, id, image, name, types} = poke
+  const pokemonEdit = {...poke, types: types.map(e=>e.name)}
 
   const favorites = useSelector(state => state.favorites)
   const [isFav, setIsFav] = useState(false)
@@ -35,6 +38,11 @@ const Card = ({key, id, image, name, types}) => {
     }
   }
 
+  const handlerEditar = () => {
+    setEditPokemon(pokemonEdit)
+    setNewPokemon(poke)
+  }
+
   return (
     <div key={key} className={style.cardContainer}>
         <h3 className={style.name}>{name}</h3>
@@ -53,6 +61,7 @@ const Card = ({key, id, image, name, types}) => {
           }) : <h5>no hay types</h5>}
 
           {isNaN(id) && <button onClick={() => onClose(id)} className={style.on_closed}>X</button>}
+          {isNaN(id) && <Link to='/create' onClick={() => handlerEditar(id)} className={style.edit}>Editar</Link>}
         </div>
         <button className={style.button}><Link to={`/detail/${id}`} className={style.link}>Ver Detalles</Link></button>
     </div>

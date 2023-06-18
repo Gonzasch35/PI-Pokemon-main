@@ -16,7 +16,7 @@ const getPokemonById = async (id) => {
         weight: data.weight,
         types: data.types.map(e=> {return {name: e.type.name}})
     }
-    return pokemon 
+        return pokemon
 }
 
 const getDbId = async (id) => {
