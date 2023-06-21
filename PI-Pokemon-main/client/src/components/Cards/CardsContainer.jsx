@@ -2,16 +2,14 @@ import React from 'react'
 import Card from '../Card/Card'
 import style from './CardsContainer.module.css'
 
-const CardsContainer = ({pokemons, setEditPokemon, setNewPokemon}) => {
+const CardsContainer = ({pokemons, setEditPokemon, setNewPokemon, currentPage, setCurrentPage}) => {
 
 
   return (
-    <div>
-
       <div className={style.mainContainer}>
 
           <>
-            {pokemons && pokemons.map(poke => {
+            {pokemons.length ? pokemons.map(poke => {
             return <Card
                     poke={poke}
 /*                 key={poke.id}
@@ -23,18 +21,12 @@ const CardsContainer = ({pokemons, setEditPokemon, setNewPokemon}) => {
                 setEditPokemon={setEditPokemon}
                 setNewPokemon={setNewPokemon}
                 />
-              })}
+              }): setCurrentPage(currentPage - 1)}
             </>
 
 
       </div>
 
-{/*       <div className={style.buttonsPage}>
-          <button onClick={handlerPrev}>Anterior</button>
-          <p>{currentPage + 1} - {totalPages}</p>
-          <button onClick={handlerNext}>Siguiente</button>
-      </div> */}
-    </div>
   )
 }
 

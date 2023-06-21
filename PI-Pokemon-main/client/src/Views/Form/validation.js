@@ -3,8 +3,8 @@ export const validation = (property, value, errors, setErrors) => {
     switch (property) {
         case 'name':
 
-            if(value.length  < 2){
-                return setErrors({...errors, name:'El nombre debe tener al menos 2 caracteres'})
+            if(value.length  < 2 || value.length > 20){
+                return setErrors({...errors, name:'El nombre debe tener 2 y 20 caracteres'})
             }else if(/\d/.test(value)) {
                 return setErrors({...errors, name: 'El nombre no puede contener numeros'})
             } else return setErrors({...errors, name: ''})

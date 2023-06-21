@@ -1,6 +1,6 @@
 .cardContainer {
     width: 300px;
-    height: auto;
+    height: fit-content;
     margin: 20px;
     display: flex;
     flex-direction: column;
@@ -26,6 +26,7 @@
 .image {
     width: auto;
     border-radius: 2em 2em 0 0;
+    filter: drop-shadow(8px 8px 8px #000000);
 }
 
 .name {
@@ -50,8 +51,12 @@
 .button {
     padding: 0;
     background-color: rgb(0, 0, 0);
-    border-radius: 0 0 .5em .5em;
     text-transform: uppercase;
+    text-decoration: none;
+    color: white;
+    font-size: 1em;
+    font-weight: 500;
+    font-family: inherit;
 }
 
 .types {
@@ -86,6 +91,16 @@
     color: white;
     border: .5px solid white;
 }
+
+.buttons_container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    background-color: black;
+    border-radius: 0 0 .5em .5em;
+}
+
 
 
 /* ------------- Types Buttons ----------------- */

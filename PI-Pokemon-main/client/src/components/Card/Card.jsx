@@ -40,9 +40,9 @@ const Card = ({poke, setEditPokemon, setNewPokemon}) => {
 
   const handlerEditar = () => {
     setEditPokemon(pokemonEdit)
-    setNewPokemon(poke)
+    setNewPokemon({...pokemonEdit, types: []})
   }
-
+  
   return (
     <div key={key} className={style.cardContainer}>
         <h3 className={style.name}>{name}</h3>
@@ -53,6 +53,7 @@ const Card = ({poke, setEditPokemon, setNewPokemon}) => {
             <button className={style.favorite} onClick={e => handleFavorite(e)}>🤍</button>
                )
             }
+
         <img className={style.image} src={image} alt="img" />
 
         <div className={style.types}>
@@ -61,9 +62,12 @@ const Card = ({poke, setEditPokemon, setNewPokemon}) => {
           }) : <h5>no hay types</h5>}
 
           {isNaN(id) && <button onClick={() => onClose(id)} className={style.on_closed}>X</button>}
-          {isNaN(id) && <Link to='/create' onClick={() => handlerEditar(id)} className={style.edit}>Editar</Link>}
         </div>
-        <button className={style.button}><Link to={`/detail/${id}`} className={style.link}>Ver Detalles</Link></button>
+        <div className={style.buttons_container}>
+          <button className={style.button}><Link to={`/detail/${id}`} className={style.link}>Ver Detalles</Link></button>
+          {isNaN(id) && <Link to='/create' onClick={() => handlerEditar(id)}  className={style.button}>Editar</Link>}
+        </div>
+
     </div>
   )
 }

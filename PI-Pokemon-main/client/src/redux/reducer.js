@@ -25,7 +25,6 @@ const rootReducer = (state = initialState, action) => {
         case GET_POKEMON_BY_ID:
             return{...state, pokemonDetail: action.payload}
         case GET_POKEMON_BY_NAME:
-            console.log(action.payload);
             return{... state, allPokemons: [action.payload]}
         case GET_POKEMONS_BY_TYPE:
             const pokemons = state.pokemons
@@ -37,12 +36,12 @@ const rootReducer = (state = initialState, action) => {
             }
         case ORDER_NAME:
             let orderName = action.payload === "name_asc" ?
-                state.pokemons.sort((prev, next) => {
+                state.allPokemons.sort((prev, next) => {
                     if(prev.name > next.name) return -1;
                     if(prev.name < next.name) return 1;
                     return 0;
                 }) :
-                state.pokemons.sort((prev, next) => {
+                state.allPokemons.sort((prev, next) => {
                     if(prev.name > next.name) return 1;
                     if(prev.name < next.name) return -1;
                     return 0;
@@ -53,12 +52,12 @@ const rootReducer = (state = initialState, action) => {
             }
             case ORDER_ATTACK:
                 let orderAttack = action.payload === "attack_desc" ?
-                    state.pokemons.sort((prev, next) => {
+                    state.allPokemons.sort((prev, next) => {
                         if(prev.attack > next.attack) return -1;
                         if(prev.attack < next.attack) return 1;
                         return 0;
                     }) :
-                    state.pokemons.sort((prev, next) => {
+                    state.allPokemons.sort((prev, next) => {
                         if(prev.attack > next.attack) return 1;
                         if(prev.attack < next.attack) return -1;
                         return 0;

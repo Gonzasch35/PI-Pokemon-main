@@ -3,7 +3,7 @@ import {getPokemonByName, getFilterPokemons, getTypes, inOrder, getApiOrDb, inOr
 import { useDispatch, useSelector } from 'react-redux'
 import style from './SearchBar.module.css'
 
-const SearchBar = ({setOrderName, setOrderAttack, setCreated, setType, setCurrentPage}) => {
+const SearchBar = ({setOrderName, setOrderAttack, setCreated, setType, setCurrentPage, orderAttack, orderName}) => {
 
     const types = useSelector(state => state.allTypes)
     const [name, setName] = useState('')
@@ -12,6 +12,8 @@ const SearchBar = ({setOrderName, setOrderAttack, setCreated, setType, setCurren
 
     useEffect(() => {
       dispatch(getTypes())
+      dispatch(inOrder(orderName))
+      dispatch(inOrderAttack(orderAttack))
     },[])
 
     const handleChange = (e) => {
@@ -22,7 +24,7 @@ const SearchBar = ({setOrderName, setOrderAttack, setCreated, setType, setCurren
     const handleChangeTypes = (e) => {
       dispatch(getFilterPokemons(e.target.value))
       setType(e.target.value)
-      setOrderName(e.target.value)
+      setOrderName('')
       setCurrentPage(1)
     }
 
@@ -46,9 +48,17 @@ const SearchBar = ({setOrderName, setOrderAttack, setCreated, setType, setCurren
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        dispatch(getPokemonByName(name))
+        dispatch(getPokemonByName(name.toLowerCase()))
         setCurrentPage(1)
         setName('')
+    }
+
+    const handlerReset = (e) => {
+      setCurrentPage(1)
+      setType('all')
+      dispatch(getFilterPokemons('all'))
+      handleChangeTypes()
+      dispatch(inOrder(''))
     }
 
   return (
@@ -74,6 +84,7 @@ const SearchBar = ({setOrderName, setOrderAttack, setCreated, setType, setCurren
         <div className={style.filters}>
           <label htmlFor="">Buscar por origen: </label>
           <select onChange={e => handlerCreated(e)}>
+            <option value=""></option>
             <option value="api">API</option>
             <option value="db">DB</option>
           </select>
@@ -91,6 +102,9 @@ const SearchBar = ({setOrderName, setOrderAttack, setCreated, setType, setCurren
             <option value="attack_asc">Ataque ascendente</option>
             <option value="attack_desc">Ataque descendente</option>
           </select>
+        </div>
+        <div>
+          <button onClick={e => handlerReset(e)}>RESET FILTERS</button>
         </div>
     </div>
   )

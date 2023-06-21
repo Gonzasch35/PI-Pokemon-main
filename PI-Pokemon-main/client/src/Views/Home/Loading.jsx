@@ -15,15 +15,7 @@ const Loading = () => {
     <div className={style.container}>
         <div className={style.cubo}>
             <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
         </div>
-{/*         <div className={style.loading}>
-            <h2>Loading...</h2>
-        </div> */}
     </div>
   )
 }

@@ -8,7 +8,6 @@ export class Favorites extends Component {
         super(props)
     }
 
-
   render() {
     return (
         <div className={style.fav_container}>
@@ -33,27 +32,3 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps, null)(Favorites)
-
-/* const Favorites = () => {
-
-    const favorites = useSelector(state=>state.favorites)
-
-  return (
-    <div className={style.fav_container}>
-        <h1 className={style.title}>Your FAVORITES</h1>
-        {favorites && 
-            favorites.map(poke => {
-                return (
-                        <Card 
-                            image={poke.image}
-                            id={poke.id}
-                            name={poke.name}
-                            types={poke.types}
-                        />
-                )
-            })}
-    </div>
-  )
-}
-
-export default Favorites */

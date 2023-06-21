@@ -2,7 +2,7 @@ const {getPokemonById, getDbId} = require('../controllers/getPokemonById')
 const getPokemonByName = require('../controllers/getPokemonByName')
 const {getAllPokemons} = require('../controllers/getPokemons')
 
-const {Pokemon} = require('../db')
+const {Pokemon, Type} = require('../db')
 
 const deletePokemonHandler = async (req,res) => {
     try {
@@ -18,28 +18,44 @@ const putPokemonHandler = async (req, res) => {
     try {
         const {id} = req.params
         const {name, image, hp, attack, defense, speed, height, weight, types} = req.body
-        await Pokemon.update({name, image, hp, attack, defense, speed, height, weight}, {
-            where: {
-                id,
-            }
+        const pokemon = await Pokemon.findOne({where:{id}})
+        const pokemonName = await Pokemon.findOne({where:{name}})
+        if(pokemonName.id !== pokemon.id) throw Error('Ya existe un pokemon con ese nombre')
+        if(!pokemon) throw Error('Pokemon no encontrado')
+        await pokemon.update({
+            name: name || pokemon.name,
+            image: image || pokemon.image,
+            hp: hp || pokemon.hp,
+            attack: attack || pokemon.attack,
+            defense: defense || pokemon.defense,
+            speed: speed || pokemon.speed,
+            heigth: height || pokemon.height,
+            weight: weight || pokemon.weight,
         })
-        const pokemon = await Pokemon.findByPk(id)
+        if(!types) throw Error('No hay types')
         await pokemon.setTypes(types)
-        res.status(200).json(pokemon)
+        res.status(200).json('Pokemon actualizado correctamente')
     } catch (error) {
-        console.log(error);
-        res.status(404).json(error)
+        res.status(400).json(error.message)
     }
 }
 
 const getPokemonsHandler = async (req, res) => {
     try {
         const {name} = req.query
-        
+/*         if(name) {
+            const fromDb = await getPokemonByName(name)
+            const fromApi = await getPokemonsApiByName(name)
+
+            if(!fromApi || !fromDb) throw Error('Pokemon no encontrad')
+            res.status(200).json(fromDb)
+        } else {
+            res.status(200).json(await getAllPokemons())
+        } */
         const results = name ? await getPokemonByName(name) : await getAllPokemons()
         results && res.status(200).json(results)
     } catch (error) {
-        res.status(404).json({error: error})
+        res.status(404).json({error: error.message})
     }
 }
 
@@ -56,11 +72,23 @@ const getPokemonHandler = async (req, res) => {
 const createPokemonHandler = async (req, res) => {
     try {
         const {name, image, hp, attack, defense, speed, height, weight, types} = req.body
-        const newPokemon = await Pokemon.create({name, image, hp, attack, defense, speed, height, weight, types})
-        await newPokemon.addTypes(types)
+        const [pokemon, created] = await Pokemon.findOrCreate(
+            {where:{name}, 
+            defaults:
+            {   name: name.toLowerCase(),
+                image,
+                hp,
+                attack, 
+                defense,
+                speed,
+                height,
+                weight }})
+        if(!created) throw Error(`El pokemon ${pokemon.name} ya existe!`)
+
+        await pokemon.addTypes(types)
         res.status(200).json('Pokemón creado')
     } catch (error) {
-        res.status(400).json({error: error.message})
+        res.status(400).json(error.message)
     }
 }
 

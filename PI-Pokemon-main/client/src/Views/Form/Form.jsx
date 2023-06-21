@@ -5,10 +5,12 @@ import * as actions from '../../redux/actions'
 import style from './Form.module.css'
 import {validation} from './validation'
 import Message from '../../components/Message/Message'
+import { useNavigate } from 'react-router-dom'
 
-const Form = ({message, setMessage, newPokemon, setNewPokemon, editPokemon}) => {
+const Form = ({message, setMessage, newPokemon, setNewPokemon, editPokemon, setEditPokemon}) => {
 
   const types = useSelector(state => state.allTypes)
+
   const [isType, setIsType] = useState({
     normal: false,
     fighting: false,
@@ -31,14 +33,15 @@ const Form = ({message, setMessage, newPokemon, setNewPokemon, editPokemon}) => 
     unknow: false,
     shadow: false,
   })
-  const dispatch = useDispatch()
-  
 
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  
   useEffect(() => {
     dispatch(actions.getTypes())
+    setMessage('')
   },[])
   
-
   const [errors, setErrors] = useState({
     name: '',
     hp: '',
@@ -71,20 +74,35 @@ const Form = ({message, setMessage, newPokemon, setNewPokemon, editPokemon}) => 
     }
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     if (!newPokemon.name || !newPokemon.image || newPokemon.hp === 0 || newPokemon.attack === 0 || newPokemon.defense === 0 || !newPokemon.types.length) {
       setMessage('Completa todos los campos')
       setTimeout(() => {
         setMessage('')
       }, 3000);
+    } else if((!errors.name && !errors.hp && !errors.attack && !errors.defense) && Object.keys(editPokemon).length > 0){
+      try {
+        await axios.put(`http://localhost:3001/pokemons/${newPokemon.id}`, newPokemon)
+        alert('Pokemon editado')
+        setEditPokemon({})
+        setNewPokemon({name: '', image:'', hp: 0, attack: 0, defense: 0, speed: 0, height: 0, weight: 0, types: []})
+        navigate('/home')
+        setMessage('')
+      } catch (error) {
+        setMessage(error.response.data)
+      }
     } else if((!errors.name && !errors.hp && !errors.attack && !errors.defense && !errors.types) && !editPokemon.length){
-      axios.post('http://localhost:3001/pokemons', newPokemon)
-      alert('Pokemon creado')
-      setNewPokemon({name: '', image:'', hp: 0, attack: 0, defense: 0, speed: 0, height: 0, weight: 0, types: []})
-    } else if((!errors.name && !errors.hp && !errors.attack && !errors.defense && !errors.types) && editPokemon){
-      axios.put(`http://localhost:3001/pokemons/${editPokemon.id}`, newPokemon)
-      alert('Pokemon editado')
+      try {
+        await axios.post('http://localhost:3001/pokemons', newPokemon)
+        alert('Pokemon creado')
+        setNewPokemon({name: '', image:'', hp: 0, attack: 0, defense: 0, speed: 0, height: 0, weight: 0, types: []})
+        setEditPokemon({})
+        navigate('/home')
+        setMessage('')
+    } catch (error) {
+        setMessage(error.response.data)
+    }
     } else {
       setMessage('Hay errores en uno o más campos')
     }
@@ -164,7 +182,6 @@ const Form = ({message, setMessage, newPokemon, setNewPokemon, editPokemon}) => 
                       value={newPokemon.speed}
                       onChange={handlerChange} 
                     />
-
                   </div>
 
               </div>
@@ -197,7 +214,7 @@ const Form = ({message, setMessage, newPokemon, setNewPokemon, editPokemon}) => 
                   <button
                     className={style[type.name]}
                     onClick={e => handlerTypes(e)}
-                    value={type.id}
+                    value={type.name}
                     key={type.id}
                     name={type.name}
                     type='button'>{type.name}

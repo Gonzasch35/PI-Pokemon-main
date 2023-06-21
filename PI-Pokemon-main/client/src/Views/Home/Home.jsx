@@ -7,12 +7,11 @@ import style from './Home.module.css'
 import Paginado from '../../components/Paginado/Paginado'
 import Loading from './Loading'
 
-const Home = ({setEditPokemon, setNewPokemon}) => {
+const Home = ({setEditPokemon, setNewPokemon, setType, type, orderAttack, orderName, setOrderName, setOrderAttack}) => {
 
   const pokemons = useSelector(state=> state.allPokemons)
-  const [orderName, setOrderName] = useState('')
-  const [orderAttack, setOrderAttack] = useState('')
-  const [type, setType] = useState('')
+
+
   const [creaded, setCreated] = useState('')
 
   const [currentPage, setCurrentPage] = useState(1)
@@ -25,11 +24,14 @@ const Home = ({setEditPokemon, setNewPokemon}) => {
     setCurrentPage(pageNumber)
   }
 
-
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(getPokemons())
+    if(type === 'all' || type === '') {
+      dispatch(getPokemons())
+      setEditPokemon({})
+      setNewPokemon({name: '', image:'', hp: 0, attack: 0, defense: 0, speed: 0, height: 0, weight: 0, types: []})
+    } 
   },[])
 
 
@@ -40,6 +42,8 @@ const Home = ({setEditPokemon, setNewPokemon}) => {
           className={style.searchBarContainer}
           setCurrentPage={setCurrentPage}
           setType={setType}
+          orderName={orderName}
+          orderAttack={orderAttack}
           setOrderName={setOrderName}
           setCreated={setCreated}
           setOrderAttack={setOrderAttack}
@@ -53,9 +57,11 @@ const Home = ({setEditPokemon, setNewPokemon}) => {
             pokemons={currentPokemons}
             setEditPokemon={setEditPokemon}
             setNewPokemon={setNewPokemon}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
           /> : <Loading />
         }
-        <Paginado 
+        <Paginado
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}
           pokemonsPerPage={pokemonsPerPage}
